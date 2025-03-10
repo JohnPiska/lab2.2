@@ -2,12 +2,14 @@ open System
 
 let endsWithDigit number digit =
     let lastDigit = abs number % 10  
-    lastDigit = digit                
-
+    lastDigit = digit  
+    
 let sumMatchingNumbers numbers digit =
-    numbers
-    |> Seq.filter (fun number -> endsWithDigit number digit)  
-    |> Seq.sum 
+    List.fold (fun sum number -> 
+        if endsWithDigit number digit then sum + number
+        else sum
+    ) 0 numbers
+
 
 let rec getNumbersFromUser () =
     printf "Введите числа через пробел: "
